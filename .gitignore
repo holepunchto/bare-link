@@ -1,0 +1,9 @@
+node_modules
+sandbox.js
+sandbox
+coverage
+build
+package-lock.json
+*.framework
+*.xcframework
+*.so

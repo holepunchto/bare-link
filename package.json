@@ -1,0 +1,65 @@
+{
+  "name": "bare-link",
+  "version": "1.0.0",
+  "description": "Native addon linker for Bare",
+  "exports": {
+    ".": "./index.js",
+    "./package": "./package.json"
+  },
+  "bin": {
+    "bare-link": "bin.js"
+  },
+  "files": [
+    "index.js",
+    "bin.js",
+    "lib"
+  ],
+  "imports": {
+    "fs": {
+      "bare": "bare-fs",
+      "default": "fs"
+    },
+    "os": {
+      "bare": "bare-os",
+      "default": "os"
+    },
+    "path": {
+      "bare": "bare-path",
+      "default": "path"
+    },
+    "process": {
+      "bare": "bare-process",
+      "default": "process"
+    },
+    "url": {
+      "bare": "bare-url",
+      "default": "url"
+    }
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-link.git"
+  },
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/bare-link/issues"
+  },
+  "homepage": "https://github.com/holepunchto/bare-link#readme",
+  "dependencies": {
+    "bare-fs": "^3.1.1",
+    "bare-module-resolve": "^1.8.2",
+    "bare-os": "^3.2.0",
+    "bare-path": "^3.0.0",
+    "bare-process": "^3.0.0",
+    "bare-url": "^2.0.9",
+    "paparam": "^1.5.0"
+  },
+  "devDependencies": {
+    "brittle": "^3.2.1",
+    "standard": "^17.0.0"
+  }
+}
