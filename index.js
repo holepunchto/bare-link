@@ -17,32 +17,44 @@ module.exports = async function link (base = '.', opts = {}) {
 
   const pkg = JSON.parse(await fs.readFile(path.join(base, 'package.json')))
 
-  const name = pkg.name.replace(/\//g, '+')
-  const version = pkg.version
+  if (typeof pkg !== 'object' || pkg === null) return
 
-  let platform = null
+  if (pkg.addon) {
+    const name = pkg.name.replace(/\//g, '+')
+    const version = pkg.version
 
-  for (const host of target) {
-    switch (host) {
-      case 'darwin-arm64':
-      case 'darwin-x64':
-      case 'ios-arm64':
-      case 'ios-arm64-simulator':
-      case 'ios-x64-simulator':
-        platform = apple
-        break
-      case 'android-arm64':
-      case 'android-arm':
-      case 'android-ia32':
-      case 'android-x64':
-        platform = android
-        break
-      default:
-        throw new Error(`Unknown target '${host}'`)
+    let platform = null
+
+    for (const host of target) {
+      switch (host) {
+        case 'darwin-arm64':
+        case 'darwin-x64':
+        case 'ios-arm64':
+        case 'ios-arm64-simulator':
+        case 'ios-x64-simulator':
+          platform = apple
+          break
+        case 'android-arm64':
+        case 'android-arm':
+        case 'android-ia32':
+        case 'android-x64':
+          platform = android
+          break
+        default:
+          throw new Error(`Unknown target '${host}'`)
+      }
     }
+
+    if (platform === null) throw new Error('No target specified')
+
+    await platform(base, pkg, name, version, opts)
   }
 
-  if (platform === null) throw new Error('No target specified')
+  const modules = await fs.openDir(path.join(base, 'node_modules'))
 
-  await platform(base, pkg, name, version, opts)
+  if (modules) {
+    for await (const entry of modules) {
+      await link(path.join(entry.parentPath, entry.name), opts)
+    }
+  }
 }
