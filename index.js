@@ -52,7 +52,7 @@ module.exports = async function link(base = '.', opts = {}) {
 
   if (modules) {
     for await (const entry of modules) {
-      await link(path.join(entry.parentPath, entry.name), opts)
+      await link(path.join(base, 'node_modules', entry.name), opts)
     }
   }
 }
