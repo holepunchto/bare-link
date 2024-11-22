@@ -37,7 +37,7 @@
     }
   },
   "scripts": {
-    "test": "standard"
+    "test": "prettier . --check"
   },
   "repository": {
     "type": "git",
@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "brittle": "^3.2.1",
-    "standard": "^17.0.0"
+    "prettier": "^3.3.3",
+    "prettier-config-standard": "^7.0.0"
   }
 }

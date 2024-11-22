@@ -3,7 +3,7 @@ const fs = require('./lib/fs')
 const apple = require('./lib/platform/apple')
 const android = require('./lib/platform/android')
 
-module.exports = async function link (base = '.', opts = {}) {
+module.exports = async function link(base = '.', opts = {}) {
   if (typeof base === 'object' && base !== null) {
     opts = base
     base = '.'
@@ -11,9 +11,7 @@ module.exports = async function link (base = '.', opts = {}) {
 
   base = path.resolve(base)
 
-  const {
-    target = []
-  } = opts
+  const { target = [] } = opts
 
   const pkg = JSON.parse(await fs.readFile(path.join(base, 'package.json')))
 
