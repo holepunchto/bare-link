@@ -1,6 +1,6 @@
 {
   "name": "bare-link",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Native addon linker for Bare",
   "exports": {
     ".": "./index.js",
