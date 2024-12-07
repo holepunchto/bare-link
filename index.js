@@ -1,9 +1,15 @@
+const { fileURLToPath } = require('url')
 const path = require('path')
 const fs = require('./lib/fs')
+const dependencies = require('./lib/dependencies')
 const apple = require('./lib/platform/apple')
 const android = require('./lib/platform/android')
 
-module.exports = async function link(base = '.', opts = {}) {
+module.exports = async function link(
+  base = '.',
+  opts = {},
+  pkg = null /* Internal */
+) {
   if (typeof base === 'object' && base !== null) {
     opts = base
     base = '.'
@@ -13,11 +19,13 @@ module.exports = async function link(base = '.', opts = {}) {
 
   const { target = [] } = opts
 
-  const pkg = JSON.parse(await fs.readFile(path.join(base, 'package.json')))
+  if (pkg === null) {
+    pkg = JSON.parse(await fs.readFile(path.join(base, 'package.json')))
 
-  if (typeof pkg !== 'object' || pkg === null) return
+    if (typeof pkg !== 'object' || pkg === null) return
+  }
 
-  if (pkg.addon) {
+  if (pkg.addon === true) {
     const name = pkg.name.replace(/\//g, '+')
     const version = pkg.version
 
@@ -48,11 +56,7 @@ module.exports = async function link(base = '.', opts = {}) {
     await platform(base, pkg, name, version, opts)
   }
 
-  const modules = await fs.openDir(path.join(base, 'node_modules'))
-
-  if (modules) {
-    for await (const entry of modules) {
-      await link(path.join(base, 'node_modules', entry.name), opts)
-    }
+  for await (const dependency of dependencies(base, pkg)) {
+    await link(fileURLToPath(dependency.url), opts, dependency.pkg)
   }
 }
