@@ -26,7 +26,7 @@ module.exports = async function link(
   }
 
   if (pkg.addon === true) {
-    const name = pkg.name.replace(/\//g, '+')
+    const name = pkg.name.replace(/\//g, '+').replace(/^@/, '')
     const version = pkg.version
 
     let platform = null
