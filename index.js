@@ -8,7 +8,8 @@ const android = require('./lib/platform/android')
 module.exports = async function link(
   base = '.',
   opts = {},
-  pkg = null /* Internal */
+  pkg = null, /* Internal */
+  visited = new Set() /* Internal */
 ) {
   if (typeof base === 'object' && base !== null) {
     opts = base
@@ -16,6 +17,10 @@ module.exports = async function link(
   }
 
   base = path.resolve(base)
+
+  if (visited.has(base)) return
+
+  visited.add(base)
 
   const { target = [] } = opts
 
@@ -57,6 +62,6 @@ module.exports = async function link(
   }
 
   for await (const dependency of dependencies(base, pkg)) {
-    await link(fileURLToPath(dependency.url), opts, dependency.pkg)
+    await link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
   }
 }
