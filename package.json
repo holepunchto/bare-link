@@ -50,11 +50,11 @@
   },
   "homepage": "https://github.com/holepunchto/bare-link#readme",
   "dependencies": {
-    "bare-fs": "^3.1.1",
+    "bare-fs": "^4.0.0",
     "bare-module-resolve": "^1.8.2",
     "bare-os": "^3.2.0",
     "bare-path": "^3.0.0",
-    "bare-process": "^3.0.0",
+    "bare-process": "^4.0.0",
     "bare-url": "^2.0.9",
     "paparam": "^1.5.0"
   },
