@@ -8,7 +8,7 @@ const android = require('./lib/platform/android')
 module.exports = async function link(
   base = '.',
   opts = {},
-  pkg = null, /* Internal */
+  pkg = null /* Internal */,
   visited = new Set() /* Internal */
 ) {
   if (typeof base === 'object' && base !== null) {
