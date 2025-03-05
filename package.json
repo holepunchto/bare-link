@@ -12,7 +12,8 @@
   "files": [
     "index.js",
     "bin.js",
-    "lib"
+    "lib",
+    "prebuilds/**/patchelf/src/patchelf"
   ],
   "imports": {
     "fs": {
@@ -60,6 +61,8 @@
   },
   "devDependencies": {
     "brittle": "^3.2.1",
+    "cmake-bare": "^1.5.3",
+    "cmake-ports": "^1.2.3",
     "prettier": "^3.3.3",
     "prettier-config-standard": "^7.0.0"
   }
