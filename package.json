@@ -18,6 +18,20 @@
     "prebuilds"
   ],
   "imports": {
+    "patchelf": {
+      "darwin": {
+        "arm64": "./prebuilds/darwin-arm64/patchelf",
+        "x64": "./prebuilds/darwin-x64/patchelf"
+      },
+      "linux": {
+        "arm64": "./prebuilds/linux-arm64/patchelf",
+        "x64": "./prebuilds/linux-x64/patchelf"
+      },
+      "win32": {
+        "arm64": "./prebuilds/win32-arm64/patchelf.exe",
+        "x64": "./prebuilds/win32-x64/patchelf.exe"
+      }
+    },
     "fs": {
       "bare": "bare-fs",
       "default": "fs"
@@ -59,7 +73,8 @@
     "bare-path": "^3.0.0",
     "bare-process": "^4.0.0",
     "bare-url": "^2.0.9",
-    "paparam": "^1.5.0"
+    "paparam": "^1.5.0",
+    "require-asset": "^1.1.0"
   },
   "devDependencies": {
     "brittle": "^3.2.1",

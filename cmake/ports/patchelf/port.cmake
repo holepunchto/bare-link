@@ -1,14 +1,24 @@
-find_package(cmake-bare REQUIRED PATHS node_modules/cmake-bare)
+include_guard(GLOBAL)
 
-bare_target(target)
+if(WIN32)
+  set(bin patchelf.exe)
+else()
+  set(bin patchelf)
+endif()
 
 declare_port(
   "https://github.com/NixOS/patchelf/releases/download/0.18.0/patchelf-0.18.0.tar.gz"
   patchelf
   AUTOTOOLS
+  BYPRODUCTS bin/${bin}
 )
 
-install(
-  FILES ${patchelf_PREFIX}/bin/patchelf
-  DESTINATION ${PROJECT_SOURCE_DIR}/prebuilds/${target}
+add_executable(patchelf IMPORTED GLOBAL)
+
+add_dependencies(patchelf ${patchelf})
+
+set_target_properties(
+  patchelf
+  PROPERTIES
+  IMPORTED_LOCATION "${patchelf_PREFIX}/bin/${bin}"
 )
