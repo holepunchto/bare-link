@@ -12,8 +12,10 @@
   "files": [
     "index.js",
     "bin.js",
+    "CMakeLists.txt",
+    "cmake",
     "lib",
-    "prebuilds/**/patchelf/src/patchelf"
+    "prebuilds"
   ],
   "imports": {
     "fs": {

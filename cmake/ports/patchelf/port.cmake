@@ -6,5 +6,5 @@ declare_port(
   "https://github.com/NixOS/patchelf/releases/download/0.18.0/patchelf-0.18.0.tar.gz"
   patchelf
   AUTOTOOLS
-  BINARY_DIR "${PROJECT_SOURCE_DIR}/prebuilds/${target}/patchelf"
+  INSTALL_ARGS "prefix=${PROJECT_SOURCE_DIR}/prebuilds/${target}/patchelf"
 )
