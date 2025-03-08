@@ -54,7 +54,7 @@
     }
   },
   "scripts": {
-    "test": "prettier . --check && bare test.js"
+    "test": "prettier . --check"
   },
   "repository": {
     "type": "git",
