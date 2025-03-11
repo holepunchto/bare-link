@@ -11,6 +11,8 @@ declare_port(
   patchelf
   AUTOTOOLS
   BYPRODUCTS bin/${bin}
+  ARGS
+    --host=${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_HOST_SYSTEM_NAME}
   ENV
     "CC=${CMAKE_C_COMPILER}"
     "CFLAGS=--target=${CMAKE_C_COMPILER_TARGET}"
