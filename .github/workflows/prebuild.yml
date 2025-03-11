@@ -31,6 +31,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+      - run: |
+          choco install msys2
+          "C:\tools\msys64" | Out-File -FilePath "$env:GITHUB_PATH" -Append
+        if: ${{ matrix.platform == 'win32' }}
+      - run: pacman --noconfirm -S make
+        shell: C:\tools\msys64\usr\bin\bash.exe -e {0}
+        env:
+          PATH: C:\tools\msys64\usr\bin
+        if: ${{ matrix.platform == 'win32' }}
       - run: npm install -g bare-runtime bare-make
       - run: npm install
       - run: bare-make generate --platform ${{ matrix.platform }} --arch ${{ matrix.arch }} ${{ matrix.flags }}
