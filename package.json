@@ -3,8 +3,8 @@
   "version": "1.0.11",
   "description": "Native addon linker for Bare",
   "exports": {
-    ".": "./index.js",
-    "./package": "./package.json"
+    "./package": "./package.json",
+    ".": "./index.js"
   },
   "bin": {
     "bare-link": "bin.js"
@@ -12,9 +12,26 @@
   "files": [
     "index.js",
     "bin.js",
-    "lib"
+    "CMakeLists.txt",
+    "cmake",
+    "lib",
+    "prebuilds"
   ],
   "imports": {
+    "patchelf": {
+      "darwin": {
+        "arm64": "./prebuilds/darwin-arm64/patchelf",
+        "x64": "./prebuilds/darwin-x64/patchelf"
+      },
+      "linux": {
+        "arm64": "./prebuilds/linux-arm64/patchelf",
+        "x64": "./prebuilds/linux-x64/patchelf"
+      },
+      "win32": {
+        "arm64": "./prebuilds/win32-arm64/patchelf.exe",
+        "x64": "./prebuilds/win32-x64/patchelf.exe"
+      }
+    },
     "fs": {
       "bare": "bare-fs",
       "default": "fs"
@@ -56,10 +73,13 @@
     "bare-path": "^3.0.0",
     "bare-process": "^4.0.0",
     "bare-url": "^2.0.9",
-    "paparam": "^1.5.0"
+    "paparam": "^1.5.0",
+    "require-asset": "^1.1.0"
   },
   "devDependencies": {
     "brittle": "^3.2.1",
+    "cmake-bare": "^1.5.3",
+    "cmake-ports": "^1.2.3",
     "prettier": "^3.3.3",
     "prettier-config-standard": "^7.0.0"
   }
