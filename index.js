@@ -4,6 +4,7 @@ const fs = require('./lib/fs')
 const dependencies = require('./lib/dependencies')
 const apple = require('./lib/platform/apple')
 const android = require('./lib/platform/android')
+const preset = require('./lib/preset')
 
 module.exports = async function link(
   base = '.',
@@ -21,6 +22,8 @@ module.exports = async function link(
   if (visited.has(base)) return
 
   visited.add(base)
+
+  opts = withPreset(opts)
 
   const { target = [] } = opts
 
@@ -64,4 +67,16 @@ module.exports = async function link(
   for await (const dependency of dependencies(base, pkg)) {
     await link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
   }
+}
+
+function withPreset(opts = {}) {
+  if (opts.preset) {
+    if (opts.preset in preset === false) {
+      throw new Error(`Unknown preset '${opts.preset}'`)
+    }
+
+    Object.assign(opts, preset[opts.preset])
+  }
+
+  return opts
 }
