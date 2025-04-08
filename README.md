@@ -35,7 +35,7 @@ Options include:
 
 ## CLI
 
-#### `bare-link [flags] <entry>`
+#### `bare-link [flags] [entry]`
 
 Flags include:
 
