@@ -1,9 +1,28 @@
 include_guard(GLOBAL)
 
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
+
 if(WIN32)
   set(bin patchelf.exe)
 else()
   set(bin patchelf)
+endif()
+
+set(c_flags "")
+
+check_c_compiler_flag(--target=${CMAKE_C_COMPILER_TARGET} supports_target)
+
+if(supports_target)
+  set(c_flags "${c_flags} --target=${CMAKE_C_COMPILER_TARGET}")
+endif()
+
+set(cxx_flags "${c_flags}")
+
+check_cxx_compiler_flag(-static-libstdc++ supports_static_libc++)
+
+if(supports_static_libc++)
+  set(cxx_flags "${cxx_flags} -static-libstdc++")
 endif()
 
 declare_port(
@@ -15,9 +34,9 @@ declare_port(
     --host=${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_HOST_SYSTEM_NAME}
   ENV
     "CC=${CMAKE_C_COMPILER}"
-    "CFLAGS=--target=${CMAKE_C_COMPILER_TARGET}"
+    "CFLAGS=${c_flags}"
     "CXX=${CMAKE_CXX_COMPILER}"
-    "CXXFLAGS=--target=${CMAKE_CXX_COMPILER_TARGET}"
+    "CXXFLAGS=${cxx_flags}"
 )
 
 add_executable(patchelf IMPORTED GLOBAL)
