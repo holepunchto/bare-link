@@ -17,8 +17,8 @@ jobs:
           - os: macos-latest
             platform: darwin
             arch: arm64
-          - os: windows-latest
-            platform: win32
+          - os: ubuntu-latest
+            platform: mingw
             arch: x64
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.platform }}-${{ matrix.arch }}
@@ -30,12 +30,12 @@ jobs:
       - run: |
           choco install msys2
           "C:\tools\msys64" | Out-File -FilePath "$env:GITHUB_PATH" -Append
-        if: ${{ matrix.platform == 'win32' }}
+        if: ${{ matrix.platform == 'mingw' }}
       - run: pacman --noconfirm -S make
         shell: C:\tools\msys64\usr\bin\bash.exe -e {0}
         env:
           PATH: C:\tools\msys64\usr\bin
-        if: ${{ matrix.platform == 'win32' }}
+        if: ${{ matrix.platform == 'mingw' }}
       - run: npm install -g bare-runtime bare-make
       - run: npm install
       - run: bare-make generate --platform ${{ matrix.platform }} --arch ${{ matrix.arch }} --debug
