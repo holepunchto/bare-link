@@ -29,13 +29,8 @@ jobs:
         with:
           node-version: lts/*
       - run: |
-          choco install msys2
-          "C:\tools\msys64" | Out-File -FilePath "$env:GITHUB_PATH" -Append
-        if: ${{ matrix.platform == 'mingw' }}
-      - run: pacman --noconfirm -S make
-        shell: C:\tools\msys64\usr\bin\bash.exe -e {0}
-        env:
-          PATH: C:\tools\msys64\usr\bin
+          sudo apt update
+          sudo apt install mingw-w64
         if: ${{ matrix.platform == 'mingw' }}
       - run: npm install -g bare-runtime bare-make
       - run: npm install
