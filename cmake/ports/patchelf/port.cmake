@@ -17,7 +17,7 @@ declare_port(
     "CC=${CMAKE_C_COMPILER}"
     "CFLAGS=--target=${CMAKE_C_COMPILER_TARGET}"
     "CXX=${CMAKE_CXX_COMPILER}"
-    "CXXFLAGS=--target=${CMAKE_CXX_COMPILER_TARGET}"
+    "CXXFLAGS=--target=${CMAKE_CXX_COMPILER_TARGET} -static-libstdc++"
 )
 
 add_executable(patchelf IMPORTED GLOBAL)
