@@ -18,12 +18,9 @@ jobs:
           - os: macos-14
             platform: darwin
             arch: arm64
-          # - os: windows-2022
-          #   platform: win32
-          #   arch: x64
-          # - os: windows-2022
-          #   platform: win32
-          #   arch: arm64
+          - os: ubuntu-22.04
+            platform: mingw
+            arch: x64
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.platform }}-${{ matrix.arch }}${{ matrix.tags }}
     steps:
@@ -32,14 +29,9 @@ jobs:
         with:
           node-version: lts/*
       - run: |
-          choco install msys2
-          "C:\tools\msys64" | Out-File -FilePath "$env:GITHUB_PATH" -Append
-        if: ${{ matrix.platform == 'win32' }}
-      - run: pacman --noconfirm -S make
-        shell: C:\tools\msys64\usr\bin\bash.exe -e {0}
-        env:
-          PATH: C:\tools\msys64\usr\bin
-        if: ${{ matrix.platform == 'win32' }}
+          sudo apt update
+          sudo apt install mingw-w64
+        if: ${{ matrix.platform == 'mingw' }}
       - run: npm install -g bare-runtime bare-make
       - run: npm install
       - run: bare-make generate --platform ${{ matrix.platform }} --arch ${{ matrix.arch }} ${{ matrix.flags }}
