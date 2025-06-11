@@ -30,10 +30,7 @@
         "arm64": "./prebuilds/linux-arm64/patchelf",
         "x64": "./prebuilds/linux-x64/patchelf"
       },
-      "win32": {
-        "arm64": "./prebuilds/win32-arm64/patchelf.exe",
-        "x64": "./prebuilds/win32-x64/patchelf.exe"
-      }
+      "win32": "./prebuilds/win32-x64/patchelf.exe"
     },
     "child_process": {
       "bare": "bare-subprocess",
