@@ -25,7 +25,7 @@ bare-link --target darwin-arm64 --target ios-arm64
 Options include:
 
 ```js
-{
+options = {
   target: [],
   needs: [],
   out: '.',
