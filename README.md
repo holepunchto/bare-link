@@ -29,6 +29,7 @@ Options include:
   target: [],
   needs: [],
   out: '.',
+  preset,
   stdio
 }
 ```
@@ -43,6 +44,7 @@ Flags include:
 --target|-t <host>
 --needs <lib>
 --out|-o <dir>
+--preset <name>
 --help|-h
 ```
 
