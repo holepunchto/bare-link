@@ -4,6 +4,8 @@ const fs = require('./lib/fs')
 const dependencies = require('./lib/dependencies')
 const apple = require('./lib/platform/apple')
 const android = require('./lib/platform/android')
+const linux = require('./lib/platform/linux')
+const windows = require('./lib/platform/windows')
 const preset = require('./lib/preset')
 
 module.exports = async function link(
@@ -36,10 +38,11 @@ module.exports = async function link(
   if (pkg.addon === true) {
     const name = pkg.name.replace(/\//g, '__').replace(/^@/, '')
     const version = pkg.version
-
-    let platform = null
+    const groups = new Map()
 
     for (const host of target) {
+      let platform
+
       switch (host) {
         case 'darwin-arm64':
         case 'darwin-x64':
@@ -54,14 +57,31 @@ module.exports = async function link(
         case 'android-x64':
           platform = android
           break
+        case 'linux-arm64':
+        case 'linux-x64':
+          platform = linux
+          break
+        case 'win32-arm64':
+        case 'win32-x64':
+          platform = windows
+          break
         default:
           throw new Error(`Unknown target '${host}'`)
       }
+
+      let group = groups.get(platform)
+
+      if (group === undefined) {
+        group = []
+        groups.set(platform, group)
+      }
+
+      group.push(host)
     }
 
-    if (platform === null) throw new Error('No target specified')
-
-    await platform(base, pkg, name, version, opts)
+    for (const [platform, target] of groups) {
+      await platform(base, pkg, name, version, { ...opts, target })
+    }
   }
 
   for await (const dependency of dependencies(base, pkg)) {
