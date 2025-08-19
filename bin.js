@@ -27,7 +27,8 @@ const cmd = command(
         preset,
         stdio: 'inherit'
       })
-    } catch {
+    } catch (err) {
+      if (err) console.error(err)
       process.exitCode = 1
     }
   }
