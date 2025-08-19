@@ -21,6 +21,7 @@ jobs:
           - os: ubuntu-22.04
             platform: mingw
             arch: x64
+            flags: --no-color
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.platform }}-${{ matrix.arch }}${{ matrix.tags }}
     steps:
