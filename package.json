@@ -1,6 +1,6 @@
 {
   "name": "bare-link",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Native addon linker for Bare",
   "exports": {
     "./package": "./package.json",
