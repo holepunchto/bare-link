@@ -5,7 +5,6 @@
   "exports": {
     "./package": "./package.json",
     ".": "./index.js",
-    "./fs": "./lib/fs.js",
     "./preset": "./lib/preset.js",
     "./preset/*": "./lib/preset/*.js"
   },
