@@ -85,6 +85,6 @@
     "cmake-bare": "^1.7.0",
     "cmake-ports": "^1.2.3",
     "prettier": "^3.3.3",
-    "prettier-config-standard": "^7.0.0"
+    "prettier-config-holepunch": "^2.0.0"
   }
 }
