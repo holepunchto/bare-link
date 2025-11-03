@@ -5,8 +5,3 @@ coverage
 build
 prebuilds
 package-lock.json
-*.framework
-*.xcframework
-*.so
-*.dll
-*.dylib
