@@ -66,7 +66,7 @@ module.exports = async function link(
           platform = windows
           break
         default:
-          throw new Error(`Unknown target '${host}'`)
+          throw new Error(`Unknown host '${host}'`)
       }
 
       let group = groups.get(platform)
@@ -79,8 +79,8 @@ module.exports = async function link(
       group.push(host)
     }
 
-    for (const [platform, target] of groups) {
-      await platform(base, pkg, name, version, { ...opts, target })
+    for (const [platform, hosts] of groups) {
+      await platform(base, pkg, name, version, { ...opts, hosts })
     }
   }
 

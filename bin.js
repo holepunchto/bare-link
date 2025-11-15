@@ -24,8 +24,7 @@ const cmd = command(
         target,
         needs,
         out,
-        preset,
-        stdio: 'inherit'
+        preset
       })
     } catch (err) {
       if (err) console.error(err)
