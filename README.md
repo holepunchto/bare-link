@@ -31,8 +31,7 @@ options = {
   target: [],
   needs: [],
   out: '.',
-  preset,
-  stdio
+  preset
 }
 ```
 
