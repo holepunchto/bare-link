@@ -20,7 +20,7 @@
     "prebuilds"
   ],
   "imports": {
-    "patchelf": {
+    "#patchelf": {
       "darwin": {
         "arm64": "./prebuilds/darwin-arm64/patchelf",
         "x64": "./prebuilds/darwin-x64/patchelf"
@@ -47,10 +47,6 @@
       "bare": "bare-path",
       "default": "path"
     },
-    "process": {
-      "bare": "bare-process",
-      "default": "process"
-    },
     "url": {
       "bare": "bare-url",
       "default": "url"
@@ -74,7 +70,6 @@
     "bare-module-resolve": "^1.12.0",
     "bare-os": "^3.2.0",
     "bare-path": "^3.0.0",
-    "bare-process": "^4.0.0",
     "bare-subprocess": "^5.0.2",
     "bare-url": "^2.0.9",
     "paparam": "^1.5.0",

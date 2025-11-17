@@ -27,7 +27,7 @@ module.exports = async function link(
 
   opts = withPreset(opts)
 
-  const { target = [] } = opts
+  const { target = [], hosts = target } = opts
 
   if (pkg === null) {
     pkg = JSON.parse(await fs.readFile(path.join(base, 'package.json')))
@@ -40,7 +40,7 @@ module.exports = async function link(
     const version = pkg.version
     const groups = new Map()
 
-    for (const host of target) {
+    for (const host of hosts) {
       let platform
 
       switch (host) {
