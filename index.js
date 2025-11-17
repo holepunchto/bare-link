@@ -8,7 +8,7 @@ const linux = require('./lib/platform/linux')
 const windows = require('./lib/platform/windows')
 const preset = require('./lib/preset')
 
-module.exports = async function link(
+module.exports = async function* link(
   base = '.',
   opts = {},
   pkg = null /* Internal */,
@@ -30,9 +30,11 @@ module.exports = async function link(
   const { target = [], hosts = target } = opts
 
   if (pkg === null) {
-    pkg = JSON.parse(await fs.readFile(path.join(base, 'package.json')))
-
-    if (typeof pkg !== 'object' || pkg === null) return
+    try {
+      pkg = require(path.resolve(base, 'package.json'))
+    } catch {
+      return
+    }
   }
 
   if (pkg.addon === true) {
@@ -80,12 +82,12 @@ module.exports = async function link(
     }
 
     for (const [platform, hosts] of groups) {
-      await platform(base, pkg, name, version, { ...opts, hosts })
+      yield* platform(base, pkg, name, version, { ...opts, hosts })
     }
   }
 
   for await (const dependency of dependencies(base, pkg)) {
-    await link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
+    yield* link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
   }
 }
 

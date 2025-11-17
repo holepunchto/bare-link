@@ -11,7 +11,9 @@ npm i [-g] bare-link
 ```js
 const link = require('bare-link')
 
-await link('/path/to/module', { target: ['darwin-arm64', 'ios-arm64'] })
+for await (const resource of link('/path/to/module', { target: ['darwin-arm64', 'ios-arm64'] })) {
+  console.log(resource)
+}
 ```
 
 ```console

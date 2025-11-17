@@ -20,12 +20,13 @@ const cmd = command(
     if (version) return console.log(`v${pkg.version}`)
 
     try {
-      await link(entry, {
+      for await (const _ of link(entry, {
         target,
         needs,
         out,
         preset
-      })
+      })) {
+      }
     } catch (err) {
       if (err) console.error(err)
       process.exitCode = 1
