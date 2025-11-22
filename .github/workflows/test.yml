@@ -17,10 +17,9 @@ jobs:
           - os: macos-latest
             platform: darwin
             arch: arm64
-          - os: ubuntu-latest
-            platform: mingw
+          - os: windows-latest
+            platform: win32
             arch: x64
-            flags: --no-color
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.platform }}-${{ matrix.arch }}
     steps:
@@ -28,13 +27,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - run: |
-          sudo apt update
-          sudo apt install mingw-w64
-        if: ${{ matrix.platform == 'mingw' }}
-      - run: npm install -g bare-runtime bare-make
+      - run: npm install -g bare-runtime
       - run: npm install
-      - run: bare-make generate --platform ${{ matrix.platform }} --arch ${{ matrix.arch }}  ${{ matrix.flags }} --debug
-      - run: bare-make build
-      - run: bare-make install
       - run: npm test
