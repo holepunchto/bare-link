@@ -22,7 +22,7 @@ bare-link --target darwin-arm64 --target ios-arm64
 
 ## API
 
-#### `await link([base][, options])`
+#### `for await (const resource of link([base][, options]))`
 
 Options include:
 
