@@ -1,11 +1,6 @@
-const { fileURLToPath } = require('url')
 const path = require('path')
-const fs = require('./lib/fs')
+const { fileURLToPath } = require('url')
 const dependencies = require('./lib/dependencies')
-const apple = require('./lib/platform/apple')
-const android = require('./lib/platform/android')
-const linux = require('./lib/platform/linux')
-const windows = require('./lib/platform/windows')
 const preset = require('./lib/preset')
 
 module.exports = async function* link(
@@ -51,21 +46,21 @@ module.exports = async function* link(
         case 'ios-arm64':
         case 'ios-arm64-simulator':
         case 'ios-x64-simulator':
-          platform = apple
+          platform = require('./lib/platform/apple')
           break
         case 'android-arm64':
         case 'android-arm':
         case 'android-ia32':
         case 'android-x64':
-          platform = android
+          platform = require('./lib/platform/android')
           break
         case 'linux-arm64':
         case 'linux-x64':
-          platform = linux
+          platform = require('./lib/platform/linux')
           break
         case 'win32-arm64':
         case 'win32-x64':
-          platform = windows
+          platform = require('./lib/platform/windows')
           break
         default:
           throw new Error(`Unknown host '${host}'`)
