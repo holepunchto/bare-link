@@ -13,9 +13,27 @@ const cmd = command(
   flag('--needs <lib>', 'Additional link library dependencies').multiple(),
   flag('--out|-o <dir>', 'The output directory'),
   flag('--preset <name>', 'Apply an option preset'),
+  flag('--sign', 'Sign the library'),
+  flag('--identity <id>', 'The macOS signing identity'),
+  flag('--keychain <name>', 'The macOS signing keychain'),
+  flag('--subject <id>', 'The Windows signing subject'),
+  flag('--subject-name <name>', 'The Windows signing subject friendly name'),
+  flag('--thumbprint <sha1>', 'The Windows signing subject thumbprint'),
   async (cmd) => {
     const { entry = '.' } = cmd.args
-    const { version, target, needs, out, preset } = cmd.flags
+    const {
+      version,
+      target,
+      needs,
+      out,
+      preset,
+      sign,
+      identity,
+      keychain,
+      subject,
+      subjectName,
+      thumbprint
+    } = cmd.flags
 
     if (version) return console.log(`v${pkg.version}`)
 
@@ -24,7 +42,13 @@ const cmd = command(
         target,
         needs,
         out,
-        preset
+        preset,
+        sign,
+        identity,
+        keychain,
+        subject,
+        subjectName,
+        thumbprint
       })) {
       }
     } catch (err) {

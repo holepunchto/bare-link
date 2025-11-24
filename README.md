@@ -31,7 +31,17 @@ options = {
   target: [],
   needs: [],
   out: '.',
-  preset
+  preset,
+  sign: false,
+
+  // Apple signing options
+  identity: 'Apple Development',
+  keychain,
+
+  // Windows signing options
+  subject,
+  subjectName,
+  thumbprint
 }
 ```
 
@@ -42,11 +52,18 @@ options = {
 Flags include:
 
 ```console
---target|-t <host>
---needs <lib>
---out|-o <dir>
---preset <name>
---help|-h
+  --version|-v            Print the current version
+  --target|-t <host>      The host to target
+  --needs <lib>           Additional link library dependencies
+  --out|-o <dir>          The output directory
+  --preset <name>         Apply an option preset
+  --sign                  Sign the library
+  --identity <id>         The macOS signing identity
+  --keychain <name>       The macOS signing keychain
+  --subject <id>          The Windows signing subject
+  --subject-name <name>   The Windows signing subject friendly name
+  --thumbprint <sha1>     The Windows signing subject thumbprint
+  --help|-h               Show help
 ```
 
 ## License
