@@ -26,7 +26,7 @@ module.exports = async function* link(
 
   if (pkg === null) {
     try {
-      pkg = require(path.resolve(base, 'package.json'))
+      pkg = require(path.join(base, 'package.json'))
     } catch {
       return
     }
