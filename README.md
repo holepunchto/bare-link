@@ -29,7 +29,6 @@ Options include:
 ```js
 options = {
   target: [],
-  needs: [],
   out: '.',
   preset,
   sign: false,
@@ -54,7 +53,6 @@ Flags include:
 ```console
   --version|-v            Print the current version
   --target|-t <host>      The host to target
-  --needs <lib>           Additional link library dependencies
   --out|-o <dir>          The output directory
   --preset <name>         Apply an option preset
   --sign                  Sign the library
