@@ -1,8 +1,13 @@
 const test = require('brittle')
 const path = require('path')
+const { spawnSync } = require('child_process')
 const link = require('..')
 
 const fixtures = path.resolve(__dirname, 'fixtures')
+
+test.hook('dependent addon, setup', () => {
+  spawnSync('npm', ['install'], { cwd: path.join(fixtures, 'dependent-addon/b') })
+})
 
 test('dependent addon, darwin-arm64', async (t) => {
   const out = await t.tmp()
