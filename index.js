@@ -32,6 +32,10 @@ module.exports = async function* link(
     }
   }
 
+  for await (const dependency of dependencies(base, pkg)) {
+    yield* link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
+  }
+
   if (pkg.addon === true) {
     const name = pkg.name.replace(/\//g, '__').replace(/^@/, '')
     const version = pkg.version
@@ -79,10 +83,6 @@ module.exports = async function* link(
     for (const [platform, hosts] of groups) {
       yield* platform(base, pkg, name, version, { ...opts, hosts })
     }
-  }
-
-  for await (const dependency of dependencies(base, pkg)) {
-    yield* link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
   }
 }
 

@@ -1,0 +1,100 @@
+const test = require('brittle')
+const path = require('path')
+const link = require('..')
+
+const fixtures = path.resolve(__dirname, 'fixtures')
+
+test('scoped addon, darwin-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+    out,
+    target: ['darwin-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, [
+    'bare__addon.1.2.3.framework/Versions/A/bare__addon.1.2.3',
+    'bare__addon.1.2.3.framework/Versions/A/Resources/Info.plist',
+    'bare__addon.1.2.3.framework'
+  ])
+})
+
+test('scoped addon, ios-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+    out,
+    target: ['ios-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, [
+    'bare__addon.1.2.3.framework/bare__addon.1.2.3',
+    'bare__addon.1.2.3.framework/Info.plist',
+    'bare__addon.1.2.3.framework'
+  ])
+})
+
+test('scoped addon, darwin-arm64 + ios-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+    out,
+    target: ['darwin-arm64', 'ios-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result.slice(-2), [
+    'bare__addon.1.2.3.xcframework/Info.plist',
+    'bare__addon.1.2.3.xcframework'
+  ])
+})
+
+test('scoped addon, android-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+    out,
+    target: ['android-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, ['arm64-v8a/libbare__addon.1.2.3.so'])
+})
+
+test('scoped addon, linux-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+    out,
+    target: ['linux-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, ['lib/libbare__addon.1.2.3.so'])
+})
+
+test('scoped addon, win32-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+    out,
+    target: ['win32-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, ['bare__addon-1.2.3.dll'])
+})
