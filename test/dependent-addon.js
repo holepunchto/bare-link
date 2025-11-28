@@ -7,7 +7,7 @@ const { paths } = require('./helpers')
 const fixtures = path.resolve(__dirname, 'fixtures')
 
 test.hook('dependent addon, setup', () => {
-  spawnSync('npm', ['install'], { cwd: path.join(fixtures, 'dependent-addon/b') })
+  spawnSync('npm', ['install'], { cwd: path.join(fixtures, 'dependent-addon/b'), shell: true })
 })
 
 test('dependent addon, darwin-arm64', async (t) => {
