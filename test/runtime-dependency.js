@@ -1,7 +1,8 @@
 const test = require('brittle')
 const path = require('path')
+const tmp = require('test-tmp')
 const link = require('..')
-const { paths } = require('./helpers')
+const { paths, tryLoadAddon } = require('./helpers')
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 
@@ -25,6 +26,40 @@ test('runtime dependency, darwin-arm64', async (t) => {
       'addon.1.2.3.framework'
     ])
   )
+
+  const addon = tryLoadAddon(path.join(out, 'addon.1.2.3.framework/Versions/A/addon.1.2.3'), [
+    'darwin-arm64'
+  ])
+
+  if (addon) t.is(addon.exports, 42)
+})
+
+test('runtime dependency, darwin-x64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+    out,
+    target: ['darwin-x64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(
+    result,
+    paths([
+      'addon.1.2.3.framework/Versions/A/Frameworks/libfoo.dylib',
+      'addon.1.2.3.framework/Versions/A/addon.1.2.3',
+      'addon.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'addon.1.2.3.framework'
+    ])
+  )
+
+  const addon = tryLoadAddon(path.join(out, 'addon.1.2.3.framework/Versions/A/addon.1.2.3'), [
+    'darwin-x64'
+  ])
+
+  if (addon) t.is(addon.exports, 42)
 })
 
 test('runtime dependency, ios-arm64', async (t) => {
@@ -75,10 +110,32 @@ test('runtime dependency, linux-arm64', async (t) => {
   }
 
   t.alike(result, paths(['lib/libfoo.so', 'lib/libaddon.1.2.3.so']))
+
+  const addon = tryLoadAddon(path.join(out, 'lib/libaddon.1.2.3.so'), ['linux-arm64'])
+
+  if (addon) t.is(addon.exports, 42)
+})
+
+test('runtime dependency, linux-x64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+    out,
+    target: ['linux-x64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, paths(['lib/libfoo.so', 'lib/libaddon.1.2.3.so']))
+
+  const addon = tryLoadAddon(path.join(out, 'lib/libaddon.1.2.3.so'), ['linux-x64'])
+
+  if (addon) t.is(addon.exports, 42)
 })
 
 test('runtime dependency, win32-arm64', async (t) => {
-  const out = await t.tmp()
+  const out = await tmp()
   const result = []
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
@@ -89,4 +146,26 @@ test('runtime dependency, win32-arm64', async (t) => {
   }
 
   t.alike(result, paths(['foo.dll', 'addon-1.2.3.dll']))
+
+  const addon = tryLoadAddon(path.join(out, 'addon-1.2.3.dll'), ['win32-arm64'])
+
+  if (addon) t.is(addon.exports, 42)
+})
+
+test('runtime dependency, win32-x64', async (t) => {
+  const out = await tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+    out,
+    target: ['win32-x64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, paths(['foo.dll', 'addon-1.2.3.dll']))
+
+  const addon = tryLoadAddon(path.join(out, 'addon-1.2.3.dll'), ['win32-x64'])
+
+  if (addon) t.is(addon.exports, 42)
 })
