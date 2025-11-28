@@ -12,6 +12,12 @@ target_sources(
     foo.c
 )
 
+set_target_properties(
+  foo
+  PROPERTIES
+  WINDOWS_EXPORT_ALL_SYMBOLS ON
+)
+
 add_bare_module(addon INSTALL TARGET foo)
 
 target_sources(
