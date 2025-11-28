@@ -1,5 +1,6 @@
 const test = require('brittle')
 const path = require('path')
+const tmp = require('test-tmp')
 const { spawnSync } = require('child_process')
 const link = require('..')
 const { paths, tryLoadAddon } = require('./helpers')
@@ -183,7 +184,7 @@ test('dependent addon, linux-x64', async (t) => {
 })
 
 test('dependent addon, win32-arm64', async (t) => {
-  const out = await t.tmp()
+  const out = await tmp()
   const result = []
 
   for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
@@ -206,7 +207,7 @@ test('dependent addon, win32-arm64', async (t) => {
 })
 
 test('dependent addon, win32-x64', async (t) => {
-  const out = await t.tmp()
+  const out = await tmp()
   const result = []
 
   for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
