@@ -2,6 +2,7 @@ const test = require('brittle')
 const path = require('path')
 const { spawnSync } = require('child_process')
 const link = require('..')
+const { paths } = require('./helpers')
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 
@@ -20,14 +21,17 @@ test('dependent addon, darwin-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, [
-    'a.1.2.3.framework/Versions/A/a.1.2.3',
-    'a.1.2.3.framework/Versions/A/Resources/Info.plist',
-    'a.1.2.3.framework',
-    'b.1.2.3.framework/Versions/A/b.1.2.3',
-    'b.1.2.3.framework/Versions/A/Resources/Info.plist',
-    'b.1.2.3.framework'
-  ])
+  t.alike(
+    result,
+    paths([
+      'a.1.2.3.framework/Versions/A/a.1.2.3',
+      'a.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'a.1.2.3.framework',
+      'b.1.2.3.framework/Versions/A/b.1.2.3',
+      'b.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'b.1.2.3.framework'
+    ])
+  )
 })
 
 test('dependent addon, ios-arm64', async (t) => {
@@ -41,14 +45,17 @@ test('dependent addon, ios-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, [
-    'a.1.2.3.framework/a.1.2.3',
-    'a.1.2.3.framework/Info.plist',
-    'a.1.2.3.framework',
-    'b.1.2.3.framework/b.1.2.3',
-    'b.1.2.3.framework/Info.plist',
-    'b.1.2.3.framework'
-  ])
+  t.alike(
+    result,
+    paths([
+      'a.1.2.3.framework/a.1.2.3',
+      'a.1.2.3.framework/Info.plist',
+      'a.1.2.3.framework',
+      'b.1.2.3.framework/b.1.2.3',
+      'b.1.2.3.framework/Info.plist',
+      'b.1.2.3.framework'
+    ])
+  )
 })
 
 test('dependent addon, darwin-arm64 + ios-arm64', async (t) => {
@@ -62,12 +69,15 @@ test('dependent addon, darwin-arm64 + ios-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result.slice(6, 8).concat(result.slice(-2)), [
-    'a.1.2.3.xcframework/Info.plist',
-    'a.1.2.3.xcframework',
-    'b.1.2.3.xcframework/Info.plist',
-    'b.1.2.3.xcframework'
-  ])
+  t.alike(
+    result.slice(6, 8).concat(result.slice(-2)),
+    paths([
+      'a.1.2.3.xcframework/Info.plist',
+      'a.1.2.3.xcframework',
+      'b.1.2.3.xcframework/Info.plist',
+      'b.1.2.3.xcframework'
+    ])
+  )
 })
 
 test('dependent addon, android-arm64', async (t) => {
@@ -81,7 +91,7 @@ test('dependent addon, android-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, ['arm64-v8a/liba.1.2.3.so', 'arm64-v8a/libb.1.2.3.so'])
+  t.alike(result, paths(['arm64-v8a/liba.1.2.3.so', 'arm64-v8a/libb.1.2.3.so']))
 })
 
 test('dependent addon, linux-arm64', async (t) => {
@@ -95,7 +105,7 @@ test('dependent addon, linux-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, ['lib/liba.1.2.3.so', 'lib/libb.1.2.3.so'])
+  t.alike(result, paths(['lib/liba.1.2.3.so', 'lib/libb.1.2.3.so']))
 })
 
 test('dependent addon, win32-arm64', async (t) => {
@@ -109,5 +119,5 @@ test('dependent addon, win32-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, ['a-1.2.3.dll', 'b-1.2.3.dll'])
+  t.alike(result, paths(['a-1.2.3.dll', 'b-1.2.3.dll']))
 })

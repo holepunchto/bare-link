@@ -1,6 +1,7 @@
 const test = require('brittle')
 const path = require('path')
 const link = require('..')
+const { paths } = require('./helpers')
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 
@@ -15,12 +16,15 @@ test('runtime dependency, darwin-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, [
-    'addon.1.2.3.framework/Versions/A/Frameworks/libfoo.dylib',
-    'addon.1.2.3.framework/Versions/A/addon.1.2.3',
-    'addon.1.2.3.framework/Versions/A/Resources/Info.plist',
-    'addon.1.2.3.framework'
-  ])
+  t.alike(
+    result,
+    paths([
+      'addon.1.2.3.framework/Versions/A/Frameworks/libfoo.dylib',
+      'addon.1.2.3.framework/Versions/A/addon.1.2.3',
+      'addon.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'addon.1.2.3.framework'
+    ])
+  )
 })
 
 test('runtime dependency, ios-arm64', async (t) => {
@@ -34,12 +38,15 @@ test('runtime dependency, ios-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, [
-    'addon.1.2.3.framework/Frameworks/libfoo.dylib',
-    'addon.1.2.3.framework/addon.1.2.3',
-    'addon.1.2.3.framework/Info.plist',
-    'addon.1.2.3.framework'
-  ])
+  t.alike(
+    result,
+    paths([
+      'addon.1.2.3.framework/Frameworks/libfoo.dylib',
+      'addon.1.2.3.framework/addon.1.2.3',
+      'addon.1.2.3.framework/Info.plist',
+      'addon.1.2.3.framework'
+    ])
+  )
 })
 
 test('runtime dependency, android-arm64', async (t) => {
@@ -53,7 +60,7 @@ test('runtime dependency, android-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, ['arm64-v8a/libfoo.so', 'arm64-v8a/libaddon.1.2.3.so'])
+  t.alike(result, paths(['arm64-v8a/libfoo.so', 'arm64-v8a/libaddon.1.2.3.so']))
 })
 
 test('runtime dependency, linux-arm64', async (t) => {
@@ -67,7 +74,7 @@ test('runtime dependency, linux-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, ['lib/libfoo.so', 'lib/libaddon.1.2.3.so'])
+  t.alike(result, paths(['lib/libfoo.so', 'lib/libaddon.1.2.3.so']))
 })
 
 test('runtime dependency, win32-arm64', async (t) => {
@@ -81,5 +88,5 @@ test('runtime dependency, win32-arm64', async (t) => {
     result.push(path.relative(out, resource))
   }
 
-  t.alike(result, ['foo.dll', 'addon-1.2.3.dll'])
+  t.alike(result, paths(['foo.dll', 'addon-1.2.3.dll']))
 })
