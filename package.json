@@ -67,6 +67,7 @@
   "devDependencies": {
     "brittle": "^3.2.1",
     "prettier": "^3.3.3",
-    "prettier-config-holepunch": "^2.0.0"
+    "prettier-config-holepunch": "^2.0.0",
+    "test-tmp": "^1.4.0"
   }
 }

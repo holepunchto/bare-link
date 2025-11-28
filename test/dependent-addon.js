@@ -2,7 +2,7 @@ const test = require('brittle')
 const path = require('path')
 const { spawnSync } = require('child_process')
 const link = require('..')
-const { paths } = require('./helpers')
+const { paths, tryLoadAddon } = require('./helpers')
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 
