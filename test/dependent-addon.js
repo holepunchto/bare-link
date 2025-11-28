@@ -1,8 +1,9 @@
 const test = require('brittle')
 const path = require('path')
+const tmp = require('test-tmp')
 const { spawnSync } = require('child_process')
 const link = require('..')
-const { paths } = require('./helpers')
+const { paths, tryLoadAddon } = require('./helpers')
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 
@@ -32,6 +33,48 @@ test('dependent addon, darwin-arm64', async (t) => {
       'b.1.2.3.framework'
     ])
   )
+
+  const a = tryLoadAddon(path.join(out, 'a.1.2.3.framework/Versions/A/a.1.2.3'), ['darwin-arm64'])
+
+  if (a) {
+    const b = tryLoadAddon(path.join(out, 'b.1.2.3.framework/Versions/A/b.1.2.3'), ['darwin-arm64'])
+
+    t.is(a.exports, 42)
+    t.is(b.exports, a.exports)
+  }
+})
+
+test('dependent addon, darwin-x64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+    out,
+    target: ['darwin-x64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(
+    result,
+    paths([
+      'a.1.2.3.framework/Versions/A/a.1.2.3',
+      'a.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'a.1.2.3.framework',
+      'b.1.2.3.framework/Versions/A/b.1.2.3',
+      'b.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'b.1.2.3.framework'
+    ])
+  )
+
+  const a = tryLoadAddon(path.join(out, 'a.1.2.3.framework/Versions/A/a.1.2.3'), ['darwin-x64'])
+
+  if (a) {
+    const b = tryLoadAddon(path.join(out, 'b.1.2.3.framework/Versions/A/b.1.2.3'), ['darwin-x64'])
+
+    t.is(a.exports, 42)
+    t.is(b.exports, a.exports)
+  }
 })
 
 test('dependent addon, ios-arm64', async (t) => {
@@ -106,10 +149,42 @@ test('dependent addon, linux-arm64', async (t) => {
   }
 
   t.alike(result, paths(['lib/liba.1.2.3.so', 'lib/libb.1.2.3.so']))
+
+  const a = tryLoadAddon(path.join(out, 'lib/liba.1.2.3.so'), ['linux-arm64'])
+
+  if (a) {
+    const b = tryLoadAddon(path.join(out, 'lib/libb.1.2.3.so'), ['linux-arm64'])
+
+    t.is(a.exports, 42)
+    t.is(b.exports, a.exports)
+  }
+})
+
+test('dependent addon, linux-x64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+    out,
+    target: ['linux-x64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, paths(['lib/liba.1.2.3.so', 'lib/libb.1.2.3.so']))
+
+  const a = tryLoadAddon(path.join(out, 'lib/liba.1.2.3.so'), ['linux-x64'])
+
+  if (a) {
+    const b = tryLoadAddon(path.join(out, 'lib/libb.1.2.3.so'), ['linux-x64'])
+
+    t.is(a.exports, 42)
+    t.is(b.exports, a.exports)
+  }
 })
 
 test('dependent addon, win32-arm64', async (t) => {
-  const out = await t.tmp()
+  const out = await tmp()
   const result = []
 
   for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
@@ -120,4 +195,36 @@ test('dependent addon, win32-arm64', async (t) => {
   }
 
   t.alike(result, paths(['a-1.2.3.dll', 'b-1.2.3.dll']))
+
+  const a = tryLoadAddon(path.join(out, 'a-1.2.3.dll'), ['win32-arm64'])
+
+  if (a) {
+    const b = tryLoadAddon(path.join(out, 'b-1.2.3.dll'), ['win32-arm64'])
+
+    t.is(a.exports, 42)
+    t.is(b.exports, a.exports)
+  }
+})
+
+test('dependent addon, win32-x64', async (t) => {
+  const out = await tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+    out,
+    target: ['win32-x64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, paths(['a-1.2.3.dll', 'b-1.2.3.dll']))
+
+  const a = tryLoadAddon(path.join(out, 'a-1.2.3.dll'), ['win32-x64'])
+
+  if (a) {
+    const b = tryLoadAddon(path.join(out, 'b-1.2.3.dll'), ['win32-x64'])
+
+    t.is(a.exports, 42)
+    t.is(b.exports, a.exports)
+  }
 })
