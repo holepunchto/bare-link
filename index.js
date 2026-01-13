@@ -22,7 +22,7 @@ module.exports = async function* link(
 
   opts = withPreset(opts)
 
-  const { target = [], hosts = target } = opts
+  const { hosts = [] } = opts
 
   if (pkg === null) {
     try {

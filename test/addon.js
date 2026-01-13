@@ -12,7 +12,7 @@ test('addon, darwin-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['darwin-arm64']
+    hosts: ['darwin-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -39,7 +39,7 @@ test('addon, darwin-arm64 + darwin-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['darwin-arm64', 'darwin-x64']
+    hosts: ['darwin-arm64', 'darwin-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -67,7 +67,7 @@ test('addon, ios-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['ios-arm64']
+    hosts: ['ios-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -88,7 +88,7 @@ test('addon, ios-arm64-simulator', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['ios-arm64-simulator']
+    hosts: ['ios-arm64-simulator']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -109,7 +109,7 @@ test('addon, ios-arm64-simulator + ios-x64-simulator', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['ios-arm64-simulator', 'ios-x64-simulator']
+    hosts: ['ios-arm64-simulator', 'ios-x64-simulator']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -130,7 +130,7 @@ test('addon, ios-arm64 + ios-arm64-simulator + ios-x64-simulator', async (t) => 
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['ios-arm64', 'ios-arm64-simulator', 'ios-x64-simulator']
+    hosts: ['ios-arm64', 'ios-arm64-simulator', 'ios-x64-simulator']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -147,7 +147,7 @@ test('addon, android-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['android-arm64']
+    hosts: ['android-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -161,7 +161,7 @@ test('addon, android-arm64 + android-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['android-arm64', 'android-x64']
+    hosts: ['android-arm64', 'android-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -175,7 +175,7 @@ test('addon, linux-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['linux-arm64']
+    hosts: ['linux-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -193,7 +193,7 @@ test('addon, linux-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['linux-x64']
+    hosts: ['linux-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -211,7 +211,7 @@ test('addon, linux-arm64 + linux-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['linux-arm64', 'linux-x64']
+    hosts: ['linux-arm64', 'linux-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -225,7 +225,7 @@ test('addon, win32-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['win32-arm64']
+    hosts: ['win32-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -243,7 +243,7 @@ test('addon, win32-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['win32-x64']
+    hosts: ['win32-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -261,7 +261,7 @@ test('addon, win32-arm64 + win32-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'addon'), {
     out,
-    target: ['win32-arm64', 'win32-x64']
+    hosts: ['win32-arm64', 'win32-x64']
   })) {
     result.push(path.relative(out, resource))
   }

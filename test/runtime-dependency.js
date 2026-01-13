@@ -12,7 +12,7 @@ test('runtime dependency, darwin-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['darwin-arm64']
+    hosts: ['darwin-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -40,7 +40,7 @@ test('runtime dependency, darwin-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['darwin-x64']
+    hosts: ['darwin-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -68,7 +68,7 @@ test('runtime dependency, ios-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['ios-arm64']
+    hosts: ['ios-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -90,7 +90,7 @@ test('runtime dependency, android-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['android-arm64']
+    hosts: ['android-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -104,7 +104,7 @@ test('runtime dependency, linux-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['linux-arm64']
+    hosts: ['linux-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -122,7 +122,7 @@ test('runtime dependency, linux-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['linux-x64']
+    hosts: ['linux-x64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -140,7 +140,7 @@ test('runtime dependency, win32-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['win32-arm64']
+    hosts: ['win32-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -158,7 +158,7 @@ test('runtime dependency, win32-x64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
     out,
-    target: ['win32-x64']
+    hosts: ['win32-x64']
   })) {
     result.push(path.relative(out, resource))
   }

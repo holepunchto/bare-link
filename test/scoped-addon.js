@@ -11,7 +11,7 @@ test('scoped addon, darwin-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
     out,
-    target: ['darwin-arm64']
+    hosts: ['darwin-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -32,7 +32,7 @@ test('scoped addon, ios-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
     out,
-    target: ['ios-arm64']
+    hosts: ['ios-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -53,7 +53,7 @@ test('scoped addon, darwin-arm64 + ios-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
     out,
-    target: ['darwin-arm64', 'ios-arm64']
+    hosts: ['darwin-arm64', 'ios-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -70,7 +70,7 @@ test('scoped addon, android-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
     out,
-    target: ['android-arm64']
+    hosts: ['android-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -84,7 +84,7 @@ test('scoped addon, linux-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
     out,
-    target: ['linux-arm64']
+    hosts: ['linux-arm64']
   })) {
     result.push(path.relative(out, resource))
   }
@@ -98,7 +98,7 @@ test('scoped addon, win32-arm64', async (t) => {
 
   for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
     out,
-    target: ['win32-arm64']
+    hosts: ['win32-arm64']
   })) {
     result.push(path.relative(out, resource))
   }

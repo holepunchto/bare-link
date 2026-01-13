@@ -11,13 +11,13 @@ npm i [-g] bare-link
 ```js
 const link = require('bare-link')
 
-for await (const resource of link('/path/to/module', { target: ['darwin-arm64', 'ios-arm64'] })) {
+for await (const resource of link('/path/to/module', { hosts: ['darwin-arm64', 'ios-arm64'] })) {
   console.log(resource)
 }
 ```
 
 ```console
-bare-link --target darwin-arm64 --target ios-arm64
+bare-link --host darwin-arm64 --host ios-arm64
 ```
 
 ## API
@@ -28,7 +28,7 @@ Options include:
 
 ```js
 options = {
-  target: [],
+  hosts: [],
   out: '.',
   preset,
   sign: false,
@@ -52,7 +52,7 @@ Flags include:
 
 ```console
   --version|-v            Print the current version
-  --target|-t <host>      The host to target
+  --host <host>           The host to target
   --out|-o <dir>          The output directory
   --preset <name>         Apply an option preset
   --sign                  Sign the library

@@ -9,7 +9,7 @@ const cmd = command(
   summary(pkg.description),
   arg('[entry]', 'The path to the native addon'),
   flag('--version|-v', 'Print the current version'),
-  flag('--target|-t <host>', 'The host to target').multiple(),
+  flag('--host <host>', 'The host to target').multiple(),
   flag('--out|-o <dir>', 'The output directory'),
   flag('--preset <name>', 'Apply an option preset'),
   flag('--sign', 'Sign the library'),
@@ -22,7 +22,7 @@ const cmd = command(
     const { entry = '.' } = cmd.args
     const {
       version,
-      target,
+      host: hosts,
       out,
       preset,
       sign,
@@ -37,7 +37,7 @@ const cmd = command(
 
     try {
       for await (const _ of link(entry, {
-        target,
+        hosts,
         out,
         preset,
         sign,
