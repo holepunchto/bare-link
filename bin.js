@@ -47,6 +47,7 @@ const cmd = command(
         subjectName,
         thumbprint
       })) {
+        //
       }
     } catch (err) {
       if (err) console.error(err)
