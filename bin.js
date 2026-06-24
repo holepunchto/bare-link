@@ -22,7 +22,7 @@ const cmd = command(
     const { entry = '.' } = cmd.args
     const {
       version,
-      host: hosts,
+      host: hosts = [`${process.platform}-${process.arch}`],
       out,
       preset,
       sign,
