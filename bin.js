@@ -15,7 +15,6 @@ const cmd = command(
   flag('--sign', 'Sign the library'),
   flag('--identity <id>', 'The macOS signing identity'),
   flag('--keychain <name>', 'The macOS signing keychain'),
-  flag('--subject <id>', 'The Windows signing subject'),
   flag('--subject-name <name>', 'The Windows signing subject friendly name'),
   flag('--thumbprint <sha1>', 'The Windows signing subject thumbprint'),
   async (cmd) => {
@@ -28,7 +27,6 @@ const cmd = command(
       sign,
       identity,
       keychain,
-      subject,
       subjectName,
       thumbprint
     } = cmd.flags
@@ -43,7 +41,6 @@ const cmd = command(
         sign,
         identity,
         keychain,
-        subject,
         subjectName,
         thumbprint
       })) {

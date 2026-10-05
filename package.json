@@ -4,15 +4,25 @@
   "description": "Native addon linker for Bare",
   "exports": {
     "./package": "./package.json",
-    ".": "./index.js",
-    "./preset": "./lib/preset.js",
-    "./preset/*": "./lib/preset/*.js"
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./preset": {
+      "types": "./lib/preset.d.ts",
+      "default": "./lib/preset.js"
+    },
+    "./preset/*": {
+      "types": "./lib/preset/*.d.ts",
+      "default": "./lib/preset/*.js"
+    }
   },
   "bin": {
     "bare-link": "bin.js"
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "bin.js",
     "lib"
   ],
