@@ -166,3 +166,42 @@ test('addon dependency that is not linked natively', async (t) => {
     'and no reference to it is added'
   )
 })
+
+test('several copies of an addon', async (t) => {
+  const dir = await t.tmp()
+  const out = await t.tmp()
+
+  for (const copy of ['x', 'y']) {
+    const pkg = path.join(dir, copy)
+
+    fs.mkdirSync(pkg)
+
+    fs.writeFileSync(
+      path.join(pkg, 'package.json'),
+      JSON.stringify({ name: 'a', version: '1.2.3', addon: true })
+    )
+
+    fs.writeFileSync(path.join(pkg, 'index.js'), "module.exports = require.addon('.')\n")
+    fs.symlinkSync(path.join(fixtures, 'dependent-addon/a/prebuilds'), path.join(pkg, 'prebuilds'))
+  }
+
+  const entry = path.join(dir, 'entry.js')
+
+  fs.writeFileSync(entry, "require('./x')\nrequire('./y')\n")
+
+  const result = []
+
+  for await (const resource of link(entry, { out, hosts: ['darwin-arm64'] })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(
+    result,
+    paths([
+      'a.1.2.3.framework/Versions/A/a.1.2.3',
+      'a.1.2.3.framework/Versions/A/Resources/Info.plist',
+      'a.1.2.3.framework'
+    ]),
+    'the addon is linked once'
+  )
+})
