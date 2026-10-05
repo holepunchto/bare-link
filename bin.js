@@ -7,7 +7,7 @@ const link = require('.')
 const cmd = command(
   pkg.name,
   summary(pkg.description),
-  arg('[entry]', 'The path to the native addon'),
+  arg('<entry>', 'The entry point of the module graph to link the addons of'),
   flag('--version|-v', 'Print the current version'),
   flag('--host <host>', 'The host to target').multiple(),
   flag('--out|-o <dir>', 'The output directory'),
@@ -19,7 +19,7 @@ const cmd = command(
   flag('--subject-name <name>', 'The Windows signing subject friendly name'),
   flag('--thumbprint <sha1>', 'The Windows signing subject thumbprint'),
   async (cmd) => {
-    const { entry = '.' } = cmd.args
+    const { entry } = cmd.args
     const {
       version,
       host: hosts = [`${process.platform}-${process.arch}`],

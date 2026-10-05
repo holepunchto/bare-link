@@ -10,7 +10,7 @@ test('runtime dependency, darwin-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['darwin-arm64']
   })) {
@@ -38,7 +38,7 @@ test('runtime dependency, darwin-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['darwin-x64']
   })) {
@@ -66,7 +66,7 @@ test('runtime dependency, ios-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['ios-arm64']
   })) {
@@ -88,7 +88,7 @@ test('runtime dependency, android-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['android-arm64']
   })) {
@@ -102,7 +102,7 @@ test('runtime dependency, linux-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['linux-arm64']
   })) {
@@ -120,7 +120,7 @@ test('runtime dependency, linux-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['linux-x64']
   })) {
@@ -138,7 +138,7 @@ test('runtime dependency, win32-arm64', async (t) => {
   const out = await tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['win32-arm64']
   })) {
@@ -156,7 +156,7 @@ test('runtime dependency, win32-x64', async (t) => {
   const out = await tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'runtime-dependency'), {
+  for await (const resource of await link(path.join(fixtures, 'runtime-dependency', 'index.js'), {
     out,
     hosts: ['win32-x64']
   })) {

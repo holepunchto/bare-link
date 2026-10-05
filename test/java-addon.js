@@ -9,7 +9,7 @@ test('java addon, android-arm64 + android-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'java-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'java-addon', 'index.js'), {
     out,
     hosts: ['android-arm64', 'android-x64']
   })) {

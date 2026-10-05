@@ -1,40 +1,27 @@
 const path = require('path')
-const { fileURLToPath } = require('url')
-const dependencies = require('./lib/dependencies')
+const addons = require('./lib/addons')
+const ordered = require('./lib/ordered')
 const preset = require('./lib/preset')
 
-module.exports = async function* link(
-  base = '.',
-  opts = {},
-  pkg = null /* Internal */,
-  visited = new Set() /* Internal */
-) {
-  if (typeof base === 'object' && base !== null) {
-    opts = base
-    base = '.'
-  }
-
-  base = path.resolve(base)
-
-  if (visited.has(base)) return
-
-  visited.add(base)
-
+module.exports = async function* link(entry, opts = {}) {
   opts = withPreset(opts)
 
+  const entries = Array.isArray(entry) ? entry : [entry]
+
+  const linking = []
+
+  for await (const base of addons(
+    entries.map((entry) => path.resolve(entry)),
+    opts.hosts || []
+  )) {
+    linking.push(linkAddon(base, require(path.join(base, 'package.json')), opts))
+  }
+
+  yield* ordered(linking)
+}
+
+async function* linkAddon(base, pkg, opts) {
   const { hosts = [] } = opts
-
-  if (pkg === null) {
-    try {
-      pkg = require(path.join(base, 'package.json'))
-    } catch {
-      return
-    }
-  }
-
-  for await (const dependency of dependencies(base, pkg)) {
-    yield* link(fileURLToPath(dependency.url), opts, dependency.pkg, visited)
-  }
 
   if (pkg.addon === true) {
     const name = pkg.name.replace(/\//g, '__').replace(/^@/, '')
