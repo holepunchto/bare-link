@@ -20,32 +20,6 @@ for await (const resource of link('/path/to/app.js', { hosts: ['darwin-arm64', '
 bare-link --host darwin-arm64 --host ios-arm64 app.js
 ```
 
-## API
-
-#### `for await (const resource of link(entry[, options]))`
-
-Link the addons that the module graph of the file `entry` loads on any of `hosts`, yielding each resource as it is written. `entry` may also be an array of files, in which case each addon is linked once.
-
-Options include:
-
-```js
-options = {
-  hosts: [],
-  out: '.',
-  preset,
-  sign: false,
-
-  // Apple signing options
-  identity: 'Apple Development',
-  keychain,
-
-  // Windows signing options
-  subject,
-  subjectName,
-  thumbprint
-}
-```
-
 ## CLI
 
 #### `bare-link [flags] <entry>`
@@ -60,7 +34,6 @@ Flags include:
   --sign                  Sign the library
   --identity <id>         The macOS signing identity
   --keychain <name>       The macOS signing keychain
-  --subject <id>          The Windows signing subject
   --subject-name <name>   The Windows signing subject friendly name
   --thumbprint <sha1>     The Windows signing subject thumbprint
   --help|-h               Show help
