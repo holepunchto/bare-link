@@ -9,7 +9,7 @@ test('scoped addon, darwin-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon', 'index.js'), {
     out,
     hosts: ['darwin-arm64']
   })) {
@@ -30,7 +30,7 @@ test('scoped addon, ios-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon', 'index.js'), {
     out,
     hosts: ['ios-arm64']
   })) {
@@ -51,7 +51,7 @@ test('scoped addon, darwin-arm64 + ios-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon', 'index.js'), {
     out,
     hosts: ['darwin-arm64', 'ios-arm64']
   })) {
@@ -68,7 +68,7 @@ test('scoped addon, android-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon', 'index.js'), {
     out,
     hosts: ['android-arm64']
   })) {
@@ -82,7 +82,7 @@ test('scoped addon, linux-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon', 'index.js'), {
     out,
     hosts: ['linux-arm64']
   })) {
@@ -96,7 +96,7 @@ test('scoped addon, win32-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'scoped-addon'), {
+  for await (const resource of await link(path.join(fixtures, 'scoped-addon', 'index.js'), {
     out,
     hosts: ['win32-arm64']
   })) {

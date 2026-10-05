@@ -1,5 +1,6 @@
 require('./test/addon')
 require('./test/dependent-addon')
+require('./test/entry')
 require('./test/java-addon')
 require('./test/runtime-dependency')
 require('./test/scoped-addon')

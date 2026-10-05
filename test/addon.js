@@ -10,7 +10,7 @@ test('addon, darwin-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['darwin-arm64']
   })) {
@@ -37,7 +37,7 @@ test('addon, darwin-arm64 + darwin-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['darwin-arm64', 'darwin-x64']
   })) {
@@ -65,7 +65,7 @@ test('addon, ios-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['ios-arm64']
   })) {
@@ -86,7 +86,7 @@ test('addon, ios-arm64-simulator', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['ios-arm64-simulator']
   })) {
@@ -107,7 +107,7 @@ test('addon, ios-arm64-simulator + ios-x64-simulator', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['ios-arm64-simulator', 'ios-x64-simulator']
   })) {
@@ -128,7 +128,7 @@ test('addon, ios-arm64 + ios-arm64-simulator + ios-x64-simulator', async (t) => 
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['ios-arm64', 'ios-arm64-simulator', 'ios-x64-simulator']
   })) {
@@ -145,7 +145,7 @@ test('addon, android-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['android-arm64']
   })) {
@@ -159,7 +159,7 @@ test('addon, android-arm64 + android-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['android-arm64', 'android-x64']
   })) {
@@ -173,7 +173,7 @@ test('addon, linux-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['linux-arm64']
   })) {
@@ -191,7 +191,7 @@ test('addon, linux-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['linux-x64']
   })) {
@@ -209,7 +209,7 @@ test('addon, linux-arm64 + linux-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['linux-arm64', 'linux-x64']
   })) {
@@ -223,7 +223,7 @@ test('addon, win32-arm64', async (t) => {
   const out = await tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['win32-arm64']
   })) {
@@ -241,7 +241,7 @@ test('addon, win32-x64', async (t) => {
   const out = await tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['win32-x64']
   })) {
@@ -259,7 +259,7 @@ test('addon, win32-arm64 + win32-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'addon'), {
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
     out,
     hosts: ['win32-arm64', 'win32-x64']
   })) {

@@ -15,7 +15,7 @@ test('dependent addon, darwin-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['darwin-arm64']
   })) {
@@ -48,7 +48,7 @@ test('dependent addon, darwin-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['darwin-x64']
   })) {
@@ -81,7 +81,7 @@ test('dependent addon, ios-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['ios-arm64']
   })) {
@@ -105,7 +105,7 @@ test('dependent addon, darwin-arm64 + ios-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['darwin-arm64', 'ios-arm64']
   })) {
@@ -127,7 +127,7 @@ test('dependent addon, android-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['android-arm64']
   })) {
@@ -141,7 +141,7 @@ test('dependent addon, linux-arm64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['linux-arm64']
   })) {
@@ -164,7 +164,7 @@ test('dependent addon, linux-x64', async (t) => {
   const out = await t.tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['linux-x64']
   })) {
@@ -187,7 +187,7 @@ test('dependent addon, win32-arm64', async (t) => {
   const out = await tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['win32-arm64']
   })) {
@@ -210,7 +210,7 @@ test('dependent addon, win32-x64', async (t) => {
   const out = await tmp()
   const result = []
 
-  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b'), {
+  for await (const resource of await link(path.join(fixtures, 'dependent-addon/b', 'index.js'), {
     out,
     hosts: ['win32-x64']
   })) {

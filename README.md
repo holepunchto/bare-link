@@ -1,6 +1,6 @@
 # bare-link
 
-Native addon linker for Bare.
+Native addon linker for Bare. The addons to link are the ones the module graph of an entry point loads on the given hosts, found with <https://github.com/holepunchto/bare-module-traverse>.
 
 ```
 npm i [-g] bare-link
@@ -11,18 +11,20 @@ npm i [-g] bare-link
 ```js
 const link = require('bare-link')
 
-for await (const resource of link('/path/to/module', { hosts: ['darwin-arm64', 'ios-arm64'] })) {
+for await (const resource of link('/path/to/app.js', { hosts: ['darwin-arm64', 'ios-arm64'] })) {
   console.log(resource)
 }
 ```
 
 ```console
-bare-link --host darwin-arm64 --host ios-arm64
+bare-link --host darwin-arm64 --host ios-arm64 app.js
 ```
 
 ## API
 
-#### `for await (const resource of link([base][, options]))`
+#### `for await (const resource of link(entry[, options]))`
+
+Link the addons that the module graph of the file `entry` loads on any of `hosts`, yielding each resource as it is written. `entry` may also be an array of files, in which case each addon is linked once.
 
 Options include:
 
@@ -46,7 +48,7 @@ options = {
 
 ## CLI
 
-#### `bare-link [flags] [entry]`
+#### `bare-link [flags] <entry>`
 
 Flags include:
 
