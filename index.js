@@ -12,7 +12,8 @@ module.exports = async function* link(entry, opts = {}) {
 
   for await (const base of addons(
     entries.map((entry) => path.resolve(entry)),
-    opts.hosts || []
+    opts.hosts || [],
+    opts
   )) {
     linking.push(linkAddon(base, require(path.join(base, 'package.json')), opts))
   }

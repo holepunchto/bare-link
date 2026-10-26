@@ -31,6 +31,7 @@ Flags include:
   --host <host>           The host to target
   --out|-o <dir>          The output directory
   --preset <name>         Apply an option preset
+  --always-multi-host     Link into the layout for several hosts even for one
   --sign                  Sign the library
   --identity <id>         The macOS signing identity
   --keychain <name>       The macOS signing keychain
