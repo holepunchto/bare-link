@@ -205,3 +205,49 @@ test('several copies of an addon', async (t) => {
     'the addon is linked once'
   )
 })
+
+test('addon that is not found', async (t) => {
+  const dir = await t.tmp()
+  const out = await t.tmp()
+
+  fs.writeFileSync(
+    path.join(dir, 'package.json'),
+    JSON.stringify({ name: 'a', version: '1.2.3', addon: true })
+  )
+
+  const entry = path.join(dir, 'index.js')
+
+  fs.writeFileSync(entry, "module.exports = require.addon('.')\n")
+
+  await t.exception(async () => {
+    for await (const _ of link(entry, { out, hosts: ['darwin-arm64'] })) {
+      //
+    }
+  }, /ADDON_NOT_FOUND/)
+})
+
+test('addon that is not found, deferred', async (t) => {
+  const dir = await t.tmp()
+  const out = await t.tmp()
+
+  fs.writeFileSync(
+    path.join(dir, 'package.json'),
+    JSON.stringify({ name: 'a', version: '1.2.3', addon: true })
+  )
+
+  const entry = path.join(dir, 'index.js')
+
+  fs.writeFileSync(entry, "module.exports = require.addon('.')\n")
+
+  const result = []
+
+  for await (const resource of link(entry, {
+    out,
+    hosts: ['darwin-arm64'],
+    deferUnresolved: true
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(result, [])
+})

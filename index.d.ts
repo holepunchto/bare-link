@@ -10,6 +10,12 @@ type Preset = keyof typeof presets
 interface LinkOptions extends TraverseOptions {
   /** The hosts to link for, such as `darwin-arm64`, `ios-arm64` or `android-arm64`. */
   hosts?: string[]
+  /**
+   * Whether to skip an import that can't be resolved rather than fail, such as an addon without a
+   * prebuild for one of `hosts`. A skipped addon is not linked for the hosts it is missing for.
+   * Defaults to `false`.
+   */
+  deferUnresolved?: boolean
   /** The directory to write the linked resources to. Defaults to the current directory. */
   out?: string
   /** A preset whose options are applied over the given ones. */
