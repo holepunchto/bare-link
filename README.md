@@ -20,6 +20,8 @@ for await (const resource of link('/path/to/app.js', { hosts: ['darwin-arm64', '
 bare-link --host darwin-arm64 --host ios-arm64 app.js
 ```
 
+Linking fails if an import of the module graph can't be resolved, such as an addon without a prebuild for one of the hosts. Pass `deferUnresolved: true` to skip such imports instead. A skipped addon is not linked for the hosts it is missing for.
+
 ## CLI
 
 #### `bare-link [flags] <entry>`
