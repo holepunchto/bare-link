@@ -60,9 +60,10 @@ interface LinkOptions extends TraverseOptions {
  * addon is linked once.
  *
  * For Apple hosts, each addon is linked into a framework, or an XCFramework when the hosts span
- * more than one of macOS, iOS and the iOS simulator or `alwaysMultiHost` is set. For Android hosts,
- * each addon is linked into a directory per ABI. For Linux and Windows hosts, each addon is linked
- * into a directory per architecture when there is more than one host or `alwaysMultiHost` is set.
+ * more than one of macOS, iOS, the iOS simulator, watchOS and the watchOS simulator or
+ * `alwaysMultiHost` is set. For Android hosts, each addon is linked into a directory per ABI. For
+ * Linux and Windows hosts, each addon is linked into a directory per architecture when there is
+ * more than one host or `alwaysMultiHost` is set.
  */
 declare function link(entry: string | string[], opts?: LinkOptions): AsyncGenerator<string>
 
