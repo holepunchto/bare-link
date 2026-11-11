@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { fileURLToPath, pathToFileURL } = require('url')
 const tmp = require('test-tmp')
+const { MachO } = require('bare-lief')
 const link = require('..')
 const { paths, tryLoadAddon } = require('./helpers')
 const { listPrefix: fsListPrefix } = require('../lib/fs')
@@ -422,4 +423,66 @@ test('addon, win32-arm64 + win32-x64', async (t) => {
   }
 
   t.alike(result, paths(['arm64/addon-1.2.3.dll', 'x64/addon-1.2.3.dll']))
+})
+
+test('addon, watchos-arm64 + watchos-arm64-32 + watchos-arm64-simulator + watchos-x64-simulator', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
+    out,
+    hosts: ['watchos-arm64', 'watchos-arm64-32', 'watchos-arm64-simulator', 'watchos-x64-simulator']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(
+    result.slice(-2),
+    paths(['addon.1.2.3.xcframework/Info.plist', 'addon.1.2.3.xcframework'])
+  )
+
+  const xcframework = path.join(out, 'addon.1.2.3.xcframework')
+
+  const info = await fs.promises.readFile(path.join(xcframework, 'Info.plist'), 'utf8')
+
+  t.ok(info.includes('<string>watchos-arm64_arm64_32</string>'))
+  t.ok(info.includes('<string>watchos-arm64_x86_64-simulator</string>'))
+
+  const framework = path.join(xcframework, 'watchos-arm64_arm64_32', 'addon.1.2.3.framework')
+
+  const fat = MachO.FatBinary.parse(await fs.promises.readFile(path.join(framework, 'addon.1.2.3')))
+
+  t.is(fat.size, 2)
+
+  const frameworkInfo = await fs.promises.readFile(path.join(framework, 'Info.plist'), 'utf8')
+
+  t.ok(frameworkInfo.includes('<key>MinimumOSVersion</key>\n  <string>10.0</string>'))
+})
+
+test('addon, watchos-arm64', async (t) => {
+  const out = await t.tmp()
+  const result = []
+
+  for await (const resource of await link(path.join(fixtures, 'addon', 'index.js'), {
+    out,
+    hosts: ['watchos-arm64']
+  })) {
+    result.push(path.relative(out, resource))
+  }
+
+  t.alike(
+    result,
+    paths([
+      'addon.1.2.3.framework/addon.1.2.3',
+      'addon.1.2.3.framework/Info.plist',
+      'addon.1.2.3.framework'
+    ])
+  )
+
+  const info = await fs.promises.readFile(
+    path.join(out, 'addon.1.2.3.framework', 'Info.plist'),
+    'utf8'
+  )
+
+  t.ok(info.includes('<key>MinimumOSVersion</key>\n  <string>26.0</string>'))
 })

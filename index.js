@@ -38,6 +38,10 @@ async function* linkAddon(base, pkg, opts) {
         case 'ios-arm64':
         case 'ios-arm64-simulator':
         case 'ios-x64-simulator':
+        case 'watchos-arm64':
+        case 'watchos-arm64-32':
+        case 'watchos-arm64-simulator':
+        case 'watchos-x64-simulator':
           platform = require('./lib/platform/apple')
           break
         case 'android-arm64':
