@@ -67,6 +67,7 @@
   "homepage": "https://github.com/holepunchto/bare-link#readme",
   "dependencies": {
     "bare-fs": "^4.0.0",
+    "bare-host-parser": "^1.0.0",
     "bare-lief": "^0.2.10",
     "bare-module-resolve": "^1.12.0",
     "bare-module-traverse": "^2.7.4",
