@@ -10,5 +10,5 @@ exports.tryLoadAddon = function tryLoadAddon(path, hosts = []) {
     return null
   }
 
-  return Bare.Addon.load(pathToFileURL(path))
+  return new Bare.Addon(pathToFileURL(path))
 }
