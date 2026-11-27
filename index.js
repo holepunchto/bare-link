@@ -3,18 +3,33 @@ const addons = require('./lib/addons')
 const ordered = require('./lib/ordered')
 const preset = require('./lib/preset')
 
-module.exports = async function* link(entry, opts = {}) {
+module.exports = exports = async function* link(entry, opts = {}) {
   opts = withPreset(opts)
 
   const entries = Array.isArray(entry) ? entry : [entry]
 
+  yield* linkAll(
+    addons(
+      entries.map((entry) => path.resolve(entry)),
+      opts.hosts || [],
+      opts
+    ),
+    opts
+  )
+}
+
+exports.packages = async function* packages(dir, opts = {}) {
+  opts = withPreset(opts)
+
+  const dirs = Array.isArray(dir) ? dir : [dir]
+
+  yield* linkAll(addons.packages(dirs, opts.hosts || [], opts), opts)
+}
+
+async function* linkAll(bases, opts) {
   const linking = []
 
-  for await (const base of addons(
-    entries.map((entry) => path.resolve(entry)),
-    opts.hosts || [],
-    opts
-  )) {
+  for await (const base of bases) {
     linking.push(linkAddon(base, require(path.join(base, 'package.json')), opts))
   }
 

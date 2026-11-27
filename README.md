@@ -22,6 +22,16 @@ bare-link --host darwin-arm64 --host ios-arm64 app.js
 
 Linking fails if an import of the module graph can't be resolved, such as an addon without a prebuild for one of the hosts. Pass `deferUnresolved: true` to skip such imports instead. A skipped addon is not linked for the hosts it is missing for.
 
+To link the addons of packages that are already known, such as those a bundle loads, pass their directories to `link.packages()` instead. The addons that their prebuilds load are linked too.
+
+```js
+for await (const resource of link.packages(['/path/to/node_modules/addon'], {
+  hosts: ['ios-arm64']
+})) {
+  console.log(resource)
+}
+```
+
 ## CLI
 
 #### `bare-link [flags] <entry>`
