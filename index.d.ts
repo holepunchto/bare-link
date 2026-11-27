@@ -68,6 +68,14 @@ interface LinkOptions extends TraverseOptions {
 declare function link(entry: string | string[], opts?: LinkOptions): AsyncGenerator<string>
 
 declare namespace link {
+  /**
+   * Link the addons of the packages in the directories `dir`, along with the addons that their
+   * prebuilds load on any of `hosts`, yielding the path of each resource as it is written. Use it
+   * when the addons are already known, such as from a bundle, rather than found by traversing a
+   * module graph. A package that isn't an addon links nothing, and each addon is linked once.
+   */
+  export function packages(dir: string | string[], opts?: LinkOptions): AsyncGenerator<string>
+
   export { LinkOptions, Preset }
 }
 
